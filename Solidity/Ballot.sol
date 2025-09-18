@@ -59,4 +59,5 @@ contract Ballot{
             }
         }
     }
+
 }
