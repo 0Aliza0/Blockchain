@@ -134,4 +134,5 @@ contract Ballot{
         stateStr = "End";
         return stateStr;
     }
+
 }
