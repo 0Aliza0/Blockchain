@@ -33,43 +33,43 @@ contract Awake{
         owner = msg.sender;
     }
     // Modifiers :
-    modifier checkNotRegister(){
+    modifier checkNotRegister{
         require(memberList[msg.sender].isMember == false , "Already Registered!");
         _;
     }
-    modifier checkPayValue(){
+    modifier checkPayValue{
         require(msg.value == tourCost , "Value Not Equal 1Eth!");
         _;
     }
-    modifier checkRegister(){
+    modifier checkRegister{
         require(memberList[msg.sender].isMember , "You Don't Registered!");
         _;
     }
-    modifier checkPaid(){
+    modifier checkPaid{
         require(memberList[msg.sender].isPaid == false , "You Are Already Paid!");
         _;
     }
-    modifier checkAwake(){
+    modifier checkAwake{
         require(memberList[msg.sender].isAwake , "You Don't Awake!");
         _;
     }
-    modifier checkCancel(){
+    modifier checkCancel{
         require(memberList[msg.sender].isCancel == false , "You Already cancel!");
         _;
     }
     //Functions :
-    function register() public checkState(State.Reg) checkNotRegister() checkPayValue() payable{
+    function register() public checkState(State.Reg) checkNotRegister checkPayValue payable{
 
         //TODO : check the state of contract
         memberList[msg.sender].isMember = true;
         memberCount++;
     }
-    function awake() public checkState(State.Vote) checkRegister(){
+    function awake() public checkState(State.Vote) checkRegister{
         
         memberList[msg.sender].isAwake = true;
         awakeCount++;
     }
-    function cancel() public checkState(State.Vote) checkRegister() checkPaid(){
+    function cancel() public checkState(State.Vote) checkRegister checkPaid{
 
         if(memberList[msg.sender].isAwake){
             memberList[msg.sender].isAwake = false;
@@ -80,7 +80,7 @@ contract Awake{
         paySend(msg.sender , tourCost);
         memberList[msg.sender].isPaid = true;
     }
-        function payShare() public checkState(State.Pay) checkRegister() checkAwake() checkCancel() checkPaid(){
+        function payShare() public checkState(State.Pay) checkRegister checkAwake checkCancel checkPaid{
 
         if(share == 0)
         share = getBalanceContract() / awakeCount;
@@ -147,3 +147,4 @@ contract Awake{
             return stateStr;
         }
 }
+
