@@ -100,4 +100,5 @@ contract Auction{
         return result;
     }
     // 300 seconds --> 5 min & 1000000000000000000 wei --> 1 ETH
+
 }
